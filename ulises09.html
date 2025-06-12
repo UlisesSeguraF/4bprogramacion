@@ -89,20 +89,19 @@
                 >
               </div>
             </li>
-            <li>
-              <form id="form">
-                <input
-                type="text"
-                id="search"
-                class="search"
-                placeholder="Buscar Personaje"
-                />
-              </form>
-            </li>
           </ul>
+          <form id="form" class="navbar-form navbar-right">
+            <input
+              type="text"
+              id="search"
+              class="search form-control"
+              placeholder="Buscar Personaje"
+            />
+          </form>
         </div>
       </div>
     </nav>
+
     <main id="main"></main>
 
     <script>
@@ -128,38 +127,43 @@
       }
 
       async function getCharacters(hp_url, rm_url) {
-          try {
-            // Harry Potter - obtener todos y filtrar localmente (no soporta búsqueda por URL)
-            const hpRes = await fetch(HP_API_URL);
-            const hpData = await hpRes.json();
-            const searchTerm = new URLSearchParams(hp_url.split('?')[1]).get('name');
-            const harryChars = hpData.filter(char => 
-              char.name && char.name.toLowerCase().includes(searchTerm.toLowerCase())
-            );
+        try {
+          // Harry Potter - obtener todos y filtrar localmente (no soporta búsqueda por URL)
+          const hpRes = await fetch(HP_API_URL);
+          const hpData = await hpRes.json();
+          const searchTerm = new URLSearchParams(hp_url.split("?")[1]).get(
+            "name"
+          );
+          const harryChars = hpData.filter(
+            (char) =>
+              char.name &&
+              char.name.toLowerCase().includes(searchTerm.toLowerCase())
+          );
 
-            // Rick & Morty - usar la URL de búsqueda
-            const rmRes = await fetch(rm_url);
-            const rmData = await rmRes.json();
-            const rickChars = rmData.results || [];
+          // Rick & Morty - usar la URL de búsqueda
+          const rmRes = await fetch(rm_url);
+          const rmData = await rmRes.json();
+          const rickChars = rmData.results || [];
 
-            showCharacters(harryChars, rickChars);
-          } catch (error) {
-            console.error('Error en búsqueda:', error);
-            showCharacters([], []);
-          }
+          showCharacters(harryChars, rickChars);
+        } catch (error) {
+          console.error("Error en búsqueda:", error);
+          showCharacters([], []);
         }
+      }
 
       function showCharacters(charactersHP, charactersRM) {
         main.innerHTML = "";
 
         charactersHP.forEach((char) => {
           const { name, image, house, species } = char;
-            const charElement = document.createElement("div");
-            charElement.classList.add("character-card");
-            charElement.innerHTML = `
+          // Only show characters with images
+          const charElement = document.createElement("div");
+          charElement.classList.add("character-card");
+          charElement.innerHTML = `
                         <div class="character-image">
                             <img src="${image}" alt="${name}" onerror="this.parentElement.style.display='none'">
-                            
+                            <div class="api-tag hp-tag">Harry Potter</div>
                         </div>
                         <div class="character-info">
                             <h3 class="character-name">${name}</h3>
@@ -170,11 +174,10 @@
                                 <p><strong>Especie:</strong> ${
                                   species || "Desconocida"
                                 }</p>
-                                <div class="api-tag hp-tag">Harry Potter</div>
                             </div>
                         </div>
                     `;
-            main.appendChild(charElement);
+          main.appendChild(charElement);
         });
 
         charactersRM.forEach((char) => {
@@ -184,7 +187,7 @@
           charElement.innerHTML = `
                     <div class="character-image">
                         <img src="${image}" alt="${name}">
-                        
+                        <div class="api-tag rm-tag">Rick & Morty</div>
                     </div>
                     <div class="character-info">
                         <h3 class="character-name">${name}</h3>
@@ -192,7 +195,6 @@
                             <p><strong>Estado:</strong> ${status}</p>
                             <p><strong>Especie:</strong> ${species}</p>
                             <p><strong>Origen:</strong> ${origin.name}</p>
-                            <div class="api-tag rm-tag">Rick & Morty</div>
                         </div>
                     </div>
                 `;
