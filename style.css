@@ -963,23 +963,7 @@ header {
 }
 
 /* CHART POSITIONING FIX - Only essential styling for chart visibility */
-.pokemon-page .grafica {
-    position: absolute;
-    top: 350px;
-    left: 100px;
-    width: 500px;
-    height: 250px;
-    background: rgba(255, 255, 255, 0.9);
-    border-radius: 10px;
-    padding: 15px;
-    border: 2px solid #EE1C91;
-    z-index: 10;
-}
 
-.pokemon-page .grafica canvas {
-    width: 100% !important;
-    height: 100% !important;
-}
 
 /* DRAGON BALL PAGE STYLES (ulises08.html) - Freezer inspired palette */
 .dragonball-page {
