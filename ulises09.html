@@ -155,13 +155,12 @@
 
         charactersHP.forEach((char) => {
           const { name, image, house, species } = char;
-            // Only show characters with images
             const charElement = document.createElement("div");
             charElement.classList.add("character-card");
             charElement.innerHTML = `
                         <div class="character-image">
                             <img src="${image}" alt="${name}" onerror="this.parentElement.style.display='none'">
-                            <div class="api-tag hp-tag">Harry Potter</div>
+                            
                         </div>
                         <div class="character-info">
                             <h3 class="character-name">${name}</h3>
@@ -172,6 +171,7 @@
                                 <p><strong>Especie:</strong> ${
                                   species || "Desconocida"
                                 }</p>
+                                <div class="api-tag hp-tag">Harry Potter</div>
                             </div>
                         </div>
                     `;
@@ -185,7 +185,7 @@
           charElement.innerHTML = `
                     <div class="character-image">
                         <img src="${image}" alt="${name}">
-                        <div class="api-tag rm-tag">Rick & Morty</div>
+                        
                     </div>
                     <div class="character-info">
                         <h3 class="character-name">${name}</h3>
@@ -193,6 +193,7 @@
                             <p><strong>Estado:</strong> ${status}</p>
                             <p><strong>Especie:</strong> ${species}</p>
                             <p><strong>Origen:</strong> ${origin.name}</p>
+                            <div class="api-tag rm-tag">Rick & Morty</div>
                         </div>
                     </div>
                 `;
